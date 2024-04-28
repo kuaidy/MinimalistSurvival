@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://vxopg5nf7riq"]
+
+[ext_resource type="Texture2D" uid="uid://dov7uwa4vlgmr" path="res://images/monster_triangle.svg" id="1_6485u"]
+
+[node name="MonsterTriangle" type="Node2D"]
+
+[node name="MonsterTriangle" type="MonsterTriangle" parent="."]
+texture = ExtResource("1_6485u")
+
+[node name="Area2D" type="Area2D" parent="MonsterTriangle"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MonsterTriangle/Area2D"]
+scale = Vector2(1.03467, 1.09051)
+polygon = PackedVector2Array(0, -8, -17, 9, 17, 9)
+
+[connection signal="area_entered" from="MonsterTriangle/Area2D" to="MonsterTriangle" method="_on_area_entered"]

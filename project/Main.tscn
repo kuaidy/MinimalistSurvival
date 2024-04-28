@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://l45l4m8lgfqm"]
+
+[ext_resource type="PackedScene" uid="uid://8tn3o2xih12u" path="res://Bullet.tscn" id="1_8te00"]
+[ext_resource type="PackedScene" uid="uid://b156q3mcmuenc" path="res://Player.tscn" id="1_vq8ht"]
+[ext_resource type="PackedScene" uid="uid://vxopg5nf7riq" path="res://MonsterTriangle.tscn" id="2_3lvsc"]
+
+[sub_resource type="Curve2D" id="Curve2D_lawxj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -2, 2, 0, 0, 0, 0, 1151, 4, 0, 0, 0, 0, 1152, 651, 0, 0, 0, 0, -1, 648, 0, 0, 0, 0, -2, 2)
+}
+point_count = 5
+
+[node name="Main" type="Node"]
+
+[node name="Main" type="Main" parent="."]
+m_BulletScene = ExtResource("1_8te00")
+m_MonsterTriangleScene = ExtResource("2_3lvsc")
+
+[node name="Player" parent="Main" instance=ExtResource("1_vq8ht")]
+position = Vector2(562, 347)
+
+[node name="MonsterTimer" type="Timer" parent="Main"]
+wait_time = 0.5
+autostart = true
+
+[node name="BulletTimer" type="Timer" parent="Main"]
+wait_time = 0.5
+autostart = true
+
+[node name="MonsterPath" type="Path2D" parent="Main"]
+curve = SubResource("Curve2D_lawxj")
+
+[node name="MonsterSpawnLocation" type="PathFollow2D" parent="Main/MonsterPath"]
+position = Vector2(-2, 2)
+rotation = 0.0017346
+
+[connection signal="timeout" from="Main/MonsterTimer" to="Main" method="_on_monster_timer_timeout"]
+[connection signal="timeout" from="Main/BulletTimer" to="Main" method="_on_bullet_timer_timeout"]
